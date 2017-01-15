@@ -3,4 +3,6 @@
     <string name="tituloCrearCuenta">Crear una cuenta</string>
     <string name="mailCrearCuenta">Email</string>
     <string name="usuarioCrearCuenta">Elija un usuario</string>
+    <string name="contrasenaCrearCuenta">Elija una contraseña</string>
+    <string name="botonCrearCuenta">Crear perfil</string>
 </resources>
