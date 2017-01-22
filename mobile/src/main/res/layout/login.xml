@@ -8,7 +8,7 @@
         android:id="@+id/cabecera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tituloCrearCuenta"
+        android:text="@string/tituloLogin"
         android:textAlignment="center" />
 
     <LinearLayout
@@ -25,25 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Space
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/mailCrearCuenta"
-            android:inputType="textEmailAddress" />
-
-        <Space
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -63,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/usuarioCrearCuenta"
+            android:hint="@string/usuarioLogin"
             android:inputType="textPersonName" />
 
         <Space
@@ -89,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/contrasenaCrearCuenta"
+            android:hint="@string/contrasenaLogin"
             android:inputType="textPassword" />
 
         <Space
@@ -124,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/botonCrearCuenta" />
+            android:text="@string/botonLogin" />
 
         <Space
             android:layout_width="35dp"
@@ -146,7 +127,7 @@
             android:id="@+id/pie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/botonLoginCrearCuenta"
+            android:text="@string/botonLoginLogin"
             android:textAlignment="center" />
 
         <Space
