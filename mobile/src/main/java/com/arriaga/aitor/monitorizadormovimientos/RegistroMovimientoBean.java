@@ -23,6 +23,9 @@ public class RegistroMovimientoBean {
         this.ID_TIPO_MOV_DETECT = ID_TIPO_MOV_DETECT;
     }
 
+    public RegistroMovimientoBean() {
+    }
+
     @Override
     public String toString() {
         return "RegistroMovimientoEntity{" +
