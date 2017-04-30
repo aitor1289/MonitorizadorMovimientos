@@ -9,16 +9,14 @@ public class RegistroMovimientoBean {
     private int X;
     private int Y;
     private int Z;
-    private int TIPO_MOVIMIENTOS_ID_TIPO_MOV;
     private int USUARIOS_ID_USER;
     private int ID_TIPO_MOV_DETECT;
 
-    public RegistroMovimientoBean(int ID_REG_MOV, int x, int y, int z, int TIPO_MOVIMIENTOS_ID_TIPO_MOV, int USUARIOS_ID_USER, int ID_TIPO_MOV_DETECT) {
+    public RegistroMovimientoBean(int ID_REG_MOV, int x, int y, int z, int USUARIOS_ID_USER, int ID_TIPO_MOV_DETECT) {
         this.ID_REG_MOV = ID_REG_MOV;
         X = x;
         Y = y;
         Z = z;
-        this.TIPO_MOVIMIENTOS_ID_TIPO_MOV = TIPO_MOVIMIENTOS_ID_TIPO_MOV;
         this.USUARIOS_ID_USER = USUARIOS_ID_USER;
         this.ID_TIPO_MOV_DETECT = ID_TIPO_MOV_DETECT;
     }
@@ -33,7 +31,6 @@ public class RegistroMovimientoBean {
                 ", X=" + X +
                 ", Y=" + Y +
                 ", Z=" + Z +
-                ", TIPO_MOVIMIENTOS_ID_TIPO_MOV=" + TIPO_MOVIMIENTOS_ID_TIPO_MOV +
                 ", USUARIOS_ID_USER=" + USUARIOS_ID_USER +
                 ", ID_TIPO_MOV_DETECT=" + ID_TIPO_MOV_DETECT +
                 '}';
@@ -69,14 +66,6 @@ public class RegistroMovimientoBean {
 
     public void setZ(int z) {
         Z = z;
-    }
-
-    public int getTIPO_MOVIMIENTOS_ID_TIPO_MOV() {
-        return TIPO_MOVIMIENTOS_ID_TIPO_MOV;
-    }
-
-    public void setTIPO_MOVIMIENTOS_ID_TIPO_MOV(int TIPO_MOVIMIENTOS_ID_TIPO_MOV) {
-        this.TIPO_MOVIMIENTOS_ID_TIPO_MOV = TIPO_MOVIMIENTOS_ID_TIPO_MOV;
     }
 
     public int getUSUARIOS_ID_USER() {

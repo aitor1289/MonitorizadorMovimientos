@@ -1,5 +1,4 @@
 package com.arriaga.aitor.monitorizadormovimientos;
-
 /**
  * Created by goati on 26/02/2017.
  */
