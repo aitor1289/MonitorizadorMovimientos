@@ -5,6 +5,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by goati on 26/02/2017.
  */
@@ -23,8 +26,9 @@ public class RegistroMovimientoDaoImpl implements RegistroMovimientoDao {
         this.db = dbHelper.getWritableDatabase();
     }
 
-    public RegistroMovimientoBean find(RegistroMovimientoBean regMovBean) {
+    public List<RegistroMovimientoBean> find(RegistroMovimientoBean regMovBean) {
         RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
+        List<RegistroMovimientoBean> regMovBeanList = new ArrayList<>();
 
         String[] campos = new String[]{"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"};
         String[] args = new String[]{Integer.toString(regMovBean.getID_REG_MOV()), Integer.toString(regMovBean.getX()), Integer.toString(regMovBean.getY()),
@@ -51,58 +55,69 @@ public class RegistroMovimientoDaoImpl implements RegistroMovimientoDao {
                 regMovEntity.setUSUARIOS_ID_USER(Integer.parseInt(USUARIOS_ID_USER));
                 regMovEntity.setID_TIPO_MOV_DETECT(Integer.parseInt(ID_TIPO_MOV));
 
+                regMovBeanList.add(regMovTransform.RegistroMovimientoEntityToBean(regMovEntity));
+
             } while (c.moveToNext());
         }
 
-        RegistroMovimientoBean regMovBeanNew = regMovTransform.RegistroMovimientoEntityToBean(regMovEntity);
-
-        return regMovBeanNew;
+        return regMovBeanList;
     }
 
     public boolean insert(RegistroMovimientoBean regMovBean) {
-        boolean resultado = false;
+        boolean resultado = true;
 
         RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
 
         //Creamos el registro a insertar como objeto ContentValues
         ContentValues nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("codigo", "6");
-        nuevoRegistro.put("nombre", "usuariopru");
+
+        //"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"
+        nuevoRegistro.put("ID_REG_MOV", regMovEntity.getID_REG_MOV());
+        nuevoRegistro.put("X", regMovEntity.getX());
+        nuevoRegistro.put("Y", regMovEntity.getY());
+        nuevoRegistro.put("Z", regMovEntity.getZ());
+        nuevoRegistro.put("ID_TIPO_MOV", regMovEntity.getID_TIPO_MOV_DETECT());
+        nuevoRegistro.put("USUARIOS_ID_USER", regMovEntity.getUSUARIOS_ID_USER());
 
         //Insertamos el registro en la base de datos
-        db.insert("Usuarios", null, nuevoRegistro);
+        long insert = db.insert("REGISTRO_MOVIMIENTOS", null, nuevoRegistro);
 
-        RegistroMovimientoBean regMovBeanNew = regMovTransform.RegistroMovimientoEntityToBean(regMovEntity);
+        if (insert == -1L) resultado = false;
 
         return resultado;
     }
 
     public boolean update(RegistroMovimientoBean regMovBean) {
-        boolean resultado = false;
+        boolean resultado = true;
 
-        RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
+        RegistroMovimientoBean registroMovimientoBean = find(regMovBean).get(0);
 
         //Establecemos los campos-valores a actualizar
         ContentValues valores = new ContentValues();
-        valores.put("nombre", "usunuevo");
+        //"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"
+        valores.put("X", registroMovimientoBean.getX());
+        valores.put("Y", registroMovimientoBean.getY());
+        valores.put("Z", registroMovimientoBean.getZ());
+        valores.put("ID_TIPO_MOV", registroMovimientoBean.getID_TIPO_MOV_DETECT());
+        valores.put("USUARIOS_ID_USER", registroMovimientoBean.getUSUARIOS_ID_USER());
 
         //Actualizamos el registro en la base de datos
-        db.update("Usuarios", valores, "codigo=6", null);
+        int update = db.update("REGISTRO_MOVIMIENTOS", valores, "ID_REG_MOV=" + registroMovimientoBean.getID_REG_MOV(), null);
 
-        RegistroMovimientoBean regMovBeanNew = regMovTransform.RegistroMovimientoEntityToBean(regMovEntity);
+        if (update != 1) resultado = false;
 
         return resultado;
     }
 
     public boolean delete(RegistroMovimientoBean regMovBean) {
-        boolean resultado = false;
+        boolean resultado = true;
 
-        RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
+        RegistroMovimientoBean registroMovimientoBean = find(regMovBean).get(0);
 
-        //Eliminamos el registro del usuario '6'
-        db.delete("Usuarios", "codigo=6", null);
+        //Eliminamos el registro
+        int delete = db.delete("REGISTRO_MOVIMIENTOS", "ID_REG_MOV=" + registroMovimientoBean.getID_REG_MOV(), null);
 
-        RegistroMovimientoBean regMovBeanNew = regMovTransform.RegistroMovimientoEntityToBean(regMovEntity);
+        if (delete == 0) resultado = false;
 
         return resultado;
     }

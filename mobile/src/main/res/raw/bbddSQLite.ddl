@@ -1,71 +1,63 @@
--- Generado por Oracle SQL Developer Data Modeler 4.1.3.901
---   en:        2017-02-08 14:06:28 CET
---   sitio:      Oracle Database 11g
---   tipo:      Oracle Database 11g
+-- Generado por Oracle SQL Developer Data Modeler 4.2.0.932
+--   en:        2017-04-30 21:48:30 CEST
+--   sitio:      Oracle Database 12c
+--   tipo:      Oracle Database 12c
 
 
 
+CREATE TABLE registro_movimientos (
+    id_reg_mov         INTEGER NOT NULL,
+    x                  NUMBER(6,3) NOT NULL,
+    y                  NUMBER(6,3) NOT NULL,
+    z                  NUMBER(6,3) NOT NULL,
+    id_tipo_mov        INTEGER NOT NULL,
+    usuarios_id_user   INTEGER NOT NULL
+);
 
-CREATE
-  TABLE REGISTRO_MOVIMIENTOS
-  (
-    ID_REG_MOV                   NUMBER (8) NOT NULL ,
-    X                            NUMBER (6,3) NOT NULL ,
-    Y                            NUMBER (6,3) NOT NULL ,
-    Z                            NUMBER (6,3) NOT NULL ,
-    TIPO_MOVIMIENTOS_ID_TIPO_MOV NUMBER (8) NOT NULL ,
-    USUARIOS_ID_USER             NUMBER (8) NOT NULL ,
-    ID_TIPO_MOV_DETECT           NUMBER (8)
-  ) ;
-ALTER TABLE REGISTRO_MOVIMIENTOS ADD CONSTRAINT REGISTRO_MOVIMIENTOS_PK PRIMARY
-KEY ( ID_REG_MOV ) ;
+ALTER TABLE registro_movimientos ADD CONSTRAINT registro_movimientos_pk PRIMARY KEY ( id_reg_mov );
 
+CREATE TABLE roles (
+    id_rol        INTEGER NOT NULL,
+    type          VARCHAR2(16) NOT NULL,
+    description   VARCHAR2(20)
+);
 
-CREATE
-  TABLE ROLES
-  (
-    ID_ROL      NUMBER (8) NOT NULL ,
-    TYPE        VARCHAR2 (16) NOT NULL ,
-    DESCRIPTION VARCHAR2 (20)
-  ) ;
-ALTER TABLE ROLES ADD CONSTRAINT ROLES_PK PRIMARY KEY ( ID_ROL ) ;
+ALTER TABLE roles ADD CONSTRAINT roles_pk PRIMARY KEY ( id_rol );
 
+CREATE TABLE tipo_movimientos (
+    id_tipo_mov   INTEGER NOT NULL,
+    type          VARCHAR2(16) NOT NULL,
+    description   VARCHAR2(20)
+);
 
-CREATE
-  TABLE TIPO_MOVIMIENTOS
-  (
-    ID_TIPO_MOV NUMBER (8) NOT NULL ,
-    TYPE        VARCHAR2 (16) NOT NULL ,
-    DESCRIPTION VARCHAR2 (20)
-  ) ;
-ALTER TABLE TIPO_MOVIMIENTOS ADD CONSTRAINT TIPO_MOVIMIENTOS_PK PRIMARY KEY (
-ID_TIPO_MOV ) ;
+ALTER TABLE tipo_movimientos ADD CONSTRAINT tipo_movimientos_pk PRIMARY KEY ( id_tipo_mov );
 
+CREATE TABLE usuarios (
+    id_user        INTEGER NOT NULL,
+    username       VARCHAR2(50) NOT NULL,
+    password       VARCHAR2(50) NOT NULL,
+    name           VARCHAR2(50),
+    surename1      VARCHAR2(50),
+    surename2      VARCHAR2(50),
+    phone          VARCHAR2(50),
+    mail           VARCHAR2(50),
+    roles_id_rol   INTEGER NOT NULL
+);
 
-CREATE
-  TABLE USUARIOS
-  (
-    ID_USER      NUMBER (8) NOT NULL ,
-    USERNAME     VARCHAR2 (50) NOT NULL ,
-    PASSWORD     VARCHAR2 (50) NOT NULL ,
-    NAME         VARCHAR2 (50) ,
-    SURENAME1    VARCHAR2 (50) ,
-    SURENAME2    VARCHAR2 (50) ,
-    PHONE        VARCHAR2 (50) ,
-    MAIL         VARCHAR2 (50) ,
-    ROLES_ID_ROL NUMBER (8) NOT NULL
-  ) ;
-ALTER TABLE USUARIOS ADD CONSTRAINT USUARIOS_PK PRIMARY KEY ( ID_USER ) ;
+ALTER TABLE usuarios ADD CONSTRAINT usuarios_pk PRIMARY KEY ( id_user );
 
+ALTER TABLE registro_movimientos ADD CONSTRAINT reg_mov_tipo_mov_fk FOREIGN KEY ( id_tipo_mov )
+    REFERENCES tipo_movimientos ( id_tipo_mov )
+NOT DEFERRABLE;
 
-ALTER TABLE REGISTRO_MOVIMIENTOS ADD CONSTRAINT REG_MOV_TIPO_MOV_FK FOREIGN KEY
-( TIPO_MOVIMIENTOS_ID_TIPO_MOV ) REFERENCES TIPO_MOVIMIENTOS ( ID_TIPO_MOV ) ;
+ALTER TABLE registro_movimientos ADD CONSTRAINT reg_mov_usuarios_fk FOREIGN KEY ( usuarios_id_user )
+    REFERENCES usuarios ( id_user )
+NOT DEFERRABLE;
 
-ALTER TABLE REGISTRO_MOVIMIENTOS ADD CONSTRAINT REG_MOV_USUARIOS_FK FOREIGN KEY
-( USUARIOS_ID_USER ) REFERENCES USUARIOS ( ID_USER ) ;
+ALTER TABLE usuarios ADD CONSTRAINT usuarios_roles_fk FOREIGN KEY ( roles_id_rol )
+    REFERENCES roles ( id_rol )
+NOT DEFERRABLE;
 
-ALTER TABLE USUARIOS ADD CONSTRAINT USUARIOS_ROLES_FK FOREIGN KEY (
-ROLES_ID_ROL ) REFERENCES ROLES ( ID_ROL ) ;
 
 
 -- Informe de Resumen de Oracle SQL Developer Data Modeler: 
@@ -102,6 +94,7 @@ ROLES_ID_ROL ) REFERENCES ROLES ( ID_ROL ) ;
 -- DROP DATABASE                            0
 -- 
 -- REDACTION POLICY                         0
+-- TSDP POLICY                              0
 -- 
 -- ORDS DROP SCHEMA                         0
 -- ORDS ENABLE SCHEMA                       0
