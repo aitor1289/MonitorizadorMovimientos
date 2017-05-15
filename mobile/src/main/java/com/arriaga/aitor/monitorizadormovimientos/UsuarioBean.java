@@ -27,6 +27,9 @@ public class UsuarioBean {
         this.ROLES_ID_ROL = ROLES_ID_ROL;
     }
 
+    public UsuarioBean() {
+    }
+
     @Override
     public String toString() {
         return "UsuarioEntity{" +

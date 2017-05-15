@@ -15,6 +15,9 @@ public class RolEntity {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+    public RolEntity() {
+    }
+
     @Override
     public String toString() {
         return "RolEntity{" +

@@ -15,6 +15,9 @@ public class TipoMovimientoBean {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+    public TipoMovimientoBean() {
+    }
+
     @Override
     public String toString() {
         return "TipoMovimientoEntity{" +
@@ -25,7 +28,6 @@ public class TipoMovimientoBean {
     }
 
     public int getID_TIPO_MOV() {
-        RolEntity
         return ID_TIPO_MOV;
     }
 

@@ -15,6 +15,9 @@ public class RolBean {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+    public RolBean() {
+    }
+
     @Override
     public String toString() {
         return "RolEntity{" +

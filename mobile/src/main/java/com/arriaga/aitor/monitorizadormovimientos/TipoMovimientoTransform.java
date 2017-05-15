@@ -5,47 +5,24 @@ package com.arriaga.aitor.monitorizadormovimientos;
  */
 
 public class TipoMovimientoTransform {
-    private int ID_TIPO_MOV;
-    private String TYPE;
-    private String DESCRIPTION;
 
-    public TipoMovimientoTransform(int ID_TIPO_MOV, String TYPE, String DESCRIPTION) {
-        this.ID_TIPO_MOV = ID_TIPO_MOV;
-        this.TYPE = TYPE;
-        this.DESCRIPTION = DESCRIPTION;
+    public TipoMovimientoBean RegistroMovimientoEntityToBean(TipoMovimientoEntity entity) {
+        TipoMovimientoBean TipoMovimientoBean = new TipoMovimientoBean();
+
+        TipoMovimientoBean.setID_TIPO_MOV(entity.getID_TIPO_MOV());
+        TipoMovimientoBean.setDESCRIPTION(entity.getDESCRIPTION());
+        TipoMovimientoBean.setTYPE(entity.getTYPE());
+
+        return TipoMovimientoBean;
     }
 
-    @Override
-    public String toString() {
-        return "TipoMovimientoEntity{" +
-                "ID_TIPO_MOV=" + ID_TIPO_MOV +
-                ", TYPE='" + TYPE + '\'' +
-                ", DESCRIPTION='" + DESCRIPTION + '\'' +
-                '}';
-    }
+    public TipoMovimientoEntity RegistroMovimientoEntityToBean(TipoMovimientoBean bean) {
+        TipoMovimientoEntity TipoMovimientoEntity = new TipoMovimientoEntity();
 
-    public int getID_TIPO_MOV() {
-        RolEntity
-        return ID_TIPO_MOV;
-    }
+        TipoMovimientoEntity.setID_TIPO_MOV(bean.getID_TIPO_MOV());
+        TipoMovimientoEntity.setTYPE(bean.getTYPE());
+        TipoMovimientoEntity.setDESCRIPTION(bean.getDESCRIPTION());
 
-    public void setID_TIPO_MOV(int ID_TIPO_MOV) {
-        this.ID_TIPO_MOV = ID_TIPO_MOV;
-    }
-
-    public String getTYPE() {
-        return TYPE;
-    }
-
-    public void setTYPE(String TYPE) {
-        this.TYPE = TYPE;
-    }
-
-    public String getDESCRIPTION() {
-        return DESCRIPTION;
-    }
-
-    public void setDESCRIPTION(String DESCRIPTION) {
-        this.DESCRIPTION = DESCRIPTION;
+        return TipoMovimientoEntity;
     }
 }

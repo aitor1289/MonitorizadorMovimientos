@@ -15,6 +15,9 @@ public class TipoMovimientoEntity {
         this.DESCRIPTION = DESCRIPTION;
     }
 
+    public TipoMovimientoEntity() {
+    }
+
     public int getID_TIPO_MOV() {
         return ID_TIPO_MOV;
     }
