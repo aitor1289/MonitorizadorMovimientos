@@ -66,7 +66,7 @@ public class RegistroMovimientoDaoImpl implements RegistroMovimientoDao {
     public boolean insert(RegistroMovimientoBean regMovBean) {
         boolean resultado = true;
 
-        RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
+        RegistroMovimientoEntity regMovEntity = regMovTransform.RegistroMovimientoBeanToEntity(regMovBean);
 
         //Creamos el registro a insertar como objeto ContentValues
         ContentValues nuevoRegistro = new ContentValues();

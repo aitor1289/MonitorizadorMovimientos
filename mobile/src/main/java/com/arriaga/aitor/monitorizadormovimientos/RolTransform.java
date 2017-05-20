@@ -6,7 +6,7 @@ package com.arriaga.aitor.monitorizadormovimientos;
 
 public class RolTransform {
 
-    public RolBean RegistroMovimientoEntityToBean(RolEntity entity) {
+    public RolBean RolEntityToBean(RolEntity entity) {
         RolBean rolBean = new RolBean();
 
         rolBean.setID_ROL(entity.getID_ROL());
@@ -16,7 +16,7 @@ public class RolTransform {
         return rolBean;
     }
 
-    public RolEntity RegistroMovimientoEntityToBean(RolBean bean) {
+    public RolEntity RolBeanToEntity(RolBean bean) {
         RolEntity rolEntity = new RolEntity();
 
         rolEntity.setID_ROL(bean.getID_ROL());

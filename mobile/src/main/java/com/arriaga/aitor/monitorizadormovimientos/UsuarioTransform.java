@@ -6,7 +6,7 @@ package com.arriaga.aitor.monitorizadormovimientos;
 
 public class UsuarioTransform {
 
-    public UsuarioBean RegistroMovimientoEntityToBean(UsuarioEntity entity) {
+    public UsuarioBean UsuarioEntityToBean(UsuarioEntity entity) {
         UsuarioBean UsuarioBean = new UsuarioBean();
 
         UsuarioBean.setID_USER(entity.getID_USER());
@@ -22,7 +22,7 @@ public class UsuarioTransform {
         return UsuarioBean;
     }
 
-    public UsuarioEntity RegistroMovimientoEntityToBean(UsuarioBean bean) {
+    public UsuarioEntity UsuarioEntityBeanToEntity(UsuarioBean bean) {
         UsuarioEntity UsuarioEntity = new UsuarioEntity();
 
         UsuarioEntity.setID_USER(bean.getID_USER());

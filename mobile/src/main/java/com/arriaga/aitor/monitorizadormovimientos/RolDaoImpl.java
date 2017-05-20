@@ -26,96 +26,84 @@ public class RolDaoImpl implements RolDao {
         this.db = dbHelper.getWritableDatabase();
     }
 
-    List<RolBean> find(RolBean rolBean) {
-        RolEntity regMovEntity = new RolEntity();
-        List<RolBean> regMovBeanList = new ArrayList<>();
+    public List<RolBean> find(RolBean rolBean) {
+        RolEntity rolEntity = new RolEntity();
+        List<RolBean> rolBeanList = new ArrayList<>();
 
-        String[] campos = new String[]{"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"};
-        String[] args = new String[]{Integer.toString(rolBean.getID_REG_MOV()), Integer.toString(rolBean.getX()), Integer.toString(rolBean.getY()),
-                Integer.toString(rolBean.getZ()), Integer.toString(rolBean.getUSUARIOS_ID_USER()), Integer.toString(rolBean.getID_TIPO_MOV_DETECT())};
+        String[] campos = new String[]{"ID_ROL", "TYPE", "DESCRIPTION"};
+        String[] args = new String[]{Integer.toString(rolBean.getID_ROL()), rolBean.getTYPE(), rolBean.getDESCRIPTION()};
 
-        Cursor c = db.query("REGISTRO_MOVIMIENTOS", campos, null, args, null, null, null);
+        Cursor c = db.query("ROLES", campos, null, args, null, null, null);
 
         //Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
-                //"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"
-                String ID_REG_MOV = c.getString(0);
-                String X = c.getString(1);
-                String Y = c.getString(2);
-                String Z = c.getString(3);
-                String ID_TIPO_MOV = c.getString(4);
-                String USUARIOS_ID_USER = c.getString(5);
+                //"ID_ROL", "DESCRIPTION", "TYPE"
+                String ID_ROL = c.getString(0);
+                String TYPE = c.getString(1);
+                String DESCRIPTION = c.getString(2);
 
-                regMovEntity.setID_REG_MOV(Integer.parseInt(ID_REG_MOV));
-                regMovEntity.setX(Integer.parseInt(X));
-                regMovEntity.setY(Integer.parseInt(Y));
-                regMovEntity.setZ(Integer.parseInt(Z));
-                regMovEntity.setUSUARIOS_ID_USER(Integer.parseInt(USUARIOS_ID_USER));
-                regMovEntity.setID_TIPO_MOV_DETECT(Integer.parseInt(ID_TIPO_MOV));
+                rolEntity.setID_ROL(Integer.parseInt(ID_ROL));
+                rolEntity.setTYPE(TYPE);
+                rolEntity.setDESCRIPTION(DESCRIPTION);
 
-                regMovBeanList.add(regMovTransform.RolEntityToBean(regMovEntity));
+                rolBeanList.add(rolTransform.RolEntityToBean(rolEntity));
 
             } while (c.moveToNext());
         }
 
-        return regMovBeanList;
+        return rolBeanList;
     }
 
-    boolean insert(RolBean rolBean) {
+    public boolean insert(RolBean rolBean) {
         boolean resultado = true;
 
-        RolEntity regMovEntity = new RolEntity();
+        RolEntity rolEntity = rolTransform.RolBeanToEntity(rolBean);
 
         //Creamos el registro a insertar como objeto ContentValues
         ContentValues nuevoRegistro = new ContentValues();
 
-        //"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"
-        nuevoRegistro.put("ID_REG_MOV", regMovEntity.getID_REG_MOV());
-        nuevoRegistro.put("X", regMovEntity.getX());
-        nuevoRegistro.put("Y", regMovEntity.getY());
-        nuevoRegistro.put("Z", regMovEntity.getZ());
-        nuevoRegistro.put("ID_TIPO_MOV", regMovEntity.getID_TIPO_MOV_DETECT());
-        nuevoRegistro.put("USUARIOS_ID_USER", regMovEntity.getUSUARIOS_ID_USER());
+        //"ID_ROL", "DESCRIPTION", "TYPE"
+        nuevoRegistro.put("ID_ROL", rolEntity.getID_ROL());
+        nuevoRegistro.put("TYPE", rolEntity.getTYPE());
+        nuevoRegistro.put("DESCRIPTION", rolEntity.getDESCRIPTION());
 
         //Insertamos el registro en la base de datos
-        long insert = db.insert("REGISTRO_MOVIMIENTOS", null, nuevoRegistro);
+        long insert = db.insert("ROLES", null, nuevoRegistro);
 
         if (insert == -1L) resultado = false;
 
         return resultado;
     }
 
-    boolean delete(RolBean rolBean) {
+    public boolean delete(RolBean rolBean) {
         boolean resultado = true;
 
-        RolBean RolBean = find(regMovBean).get(0);
+        RolBean RolBean = find(rolBean).get(0);
 
         //Eliminamos el registro
-        int delete = db.delete("REGISTRO_MOVIMIENTOS", "ID_REG_MOV=" + RolBean.getID_REG_MOV(), null);
+        int delete = db.delete("ROLES", "ID_ROL=" + RolBean.getID_ROL(), null);
 
         if (delete == 0) resultado = false;
 
         return resultado;
     }
 
-    boolean update(RolBean rolBean) {
+    public boolean update(RolBean rolBean) {
         boolean resultado = true;
 
-        RolBean RolBean = find(regMovBean).get(0);
+        RolBean RolBean = find(rolBean).get(0);
 
         //Establecemos los campos-valores a actualizar
         ContentValues valores = new ContentValues();
-        //"ID_REG_MOV", "X", "Y", "Z", "ID_TIPO_MOV", "USUARIOS_ID_USER"
-        valores.put("X", RolBean.getX());
-        valores.put("Y", RolBean.getY());
-        valores.put("Z", RolBean.getZ());
-        valores.put("ID_TIPO_MOV", RolBean.getID_TIPO_MOV_DETECT());
-        valores.put("USUARIOS_ID_USER", RolBean.getUSUARIOS_ID_USER());
+        //"ID_ROL", "DESCRIPTION", "TYPE"
+        valores.put("ID_ROL", RolBean.getID_ROL());
+        valores.put("TYPE", RolBean.getTYPE());
+        valores.put("DESCRIPTION", RolBean.getDESCRIPTION());
 
         //Actualizamos el registro en la base de datos
-        int update = db.update("REGISTRO_MOVIMIENTOS", valores, "ID_REG_MOV=" + RolBean.getID_REG_MOV(), null);
+        int update = db.update("ROLES", valores, "ID_ROL=" + RolBean.getID_ROL(), null);
 
         if (update != 1) resultado = false;
 

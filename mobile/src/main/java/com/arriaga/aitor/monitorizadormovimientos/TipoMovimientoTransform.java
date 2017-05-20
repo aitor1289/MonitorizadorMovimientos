@@ -6,7 +6,7 @@ package com.arriaga.aitor.monitorizadormovimientos;
 
 public class TipoMovimientoTransform {
 
-    public TipoMovimientoBean RegistroMovimientoEntityToBean(TipoMovimientoEntity entity) {
+    public TipoMovimientoBean TipoMovimientoEntityToBean(TipoMovimientoEntity entity) {
         TipoMovimientoBean TipoMovimientoBean = new TipoMovimientoBean();
 
         TipoMovimientoBean.setID_TIPO_MOV(entity.getID_TIPO_MOV());
@@ -16,7 +16,7 @@ public class TipoMovimientoTransform {
         return TipoMovimientoBean;
     }
 
-    public TipoMovimientoEntity RegistroMovimientoEntityToBean(TipoMovimientoBean bean) {
+    public TipoMovimientoEntity TipoMovimientoBeanToEntity(TipoMovimientoBean bean) {
         TipoMovimientoEntity TipoMovimientoEntity = new TipoMovimientoEntity();
 
         TipoMovimientoEntity.setID_TIPO_MOV(bean.getID_TIPO_MOV());

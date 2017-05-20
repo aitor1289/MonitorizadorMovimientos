@@ -16,7 +16,7 @@ import java.util.List;
  * Created by aarriaga on 13/11/2016.
  */
 
-public class Monitor extends Activity implements SensorEventListener {
+public class MonitorActivity extends Activity implements SensorEventListener {
     private long last_update = 0, last_movement = 0;
     private float prevX = 0, prevY = 0, prevZ = 0;
     private float curX = 0, curY = 0, curZ = 0;

@@ -19,7 +19,7 @@ public class RegistroMovimientoTransform {
         return regMovBean;
     }
 
-    public RegistroMovimientoEntity RegistroMovimientoEntityToBean(RegistroMovimientoBean bean) {
+    public RegistroMovimientoEntity RegistroMovimientoBeanToEntity(RegistroMovimientoBean bean) {
         RegistroMovimientoEntity regMovEntity = new RegistroMovimientoEntity();
 
         regMovEntity.setID_REG_MOV(bean.getID_REG_MOV());
