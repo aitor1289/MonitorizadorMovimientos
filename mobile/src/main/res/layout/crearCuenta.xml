@@ -143,7 +143,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/pie"
+            android:id="@+id/botonLoginCrearCuenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/botonLoginCrearCuenta"
