@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by goati on 29/01/2017.
  */
@@ -45,23 +47,30 @@ public class LoginActivity extends Activity {
                 usuarioBean.setPASSWORD(password.getText().toString());
 
                 UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl(LoginActivity.this);
-                usuarioDao.insert(usuarioBean);
+                List<UsuarioBean> busqueda = usuarioDao.find(usuarioBean);
 
-                //Creamos el Intent
-                Intent intent =
-                        new Intent(LoginActivity.this, DashboardActivity.class);
+                if (busqueda.isEmpty()) {
+                    //No existe el usuario
+                    //mostramos mensaje error
 
-                //Creamos la información a pasar entre actividades
-                Bundle b = new Bundle();
-                b.putString("email", email.getText().toString());
-                b.putString("user", user.getText().toString());
-                b.putString("password", password.getText().toString());
+                } else {
+                    //Entramos al menu de usuario
+                    //Creamos el Intent
+                    Intent intent =
+                            new Intent(LoginActivity.this, DashboardActivity.class);
 
-                //Añadimos la información al intent
-                intent.putExtras(b);
+                    //Creamos la información a pasar entre actividades
+                    Bundle b = new Bundle();
+                    b.putString("email", email.getText().toString());
+                    b.putString("user", user.getText().toString());
+                    b.putString("password", password.getText().toString());
 
-                //Iniciamos la nueva actividad
-                startActivity(intent);
+                    //Añadimos la información al intent
+                    intent.putExtras(b);
+
+                    //Iniciamos la nueva actividad
+                    startActivity(intent);
+                }
             }
         });
 
